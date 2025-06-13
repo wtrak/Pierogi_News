@@ -9,25 +9,35 @@
       padding: 2rem;
       max-width: 600px;
       margin: auto;
-      background: #f4f4f4;
+      background: #f9f9f9;
     }
     h1 {
       font-size: 2rem;
       margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
     #story {
       background: white;
       padding: 1rem;
       border-radius: 8px;
       margin-bottom: 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     a {
-      color: #d62828;
+      color: #b30000;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
     form {
       background: white;
       padding: 1rem;
       border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     input[type="email"] {
       padding: 0.5rem;
@@ -36,19 +46,19 @@
     }
     input[type="submit"] {
       padding: 0.5rem 1rem;
-      background: #d62828;
+      background: #b30000;
       color: white;
       border: none;
       border-radius: 4px;
     }
     .flag {
-      font-size: 2rem;
-      margin-right: 0.5rem;
+      font-size: 1.8rem;
     }
   </style>
 </head>
 <body>
   <h1><span class="flag">🇵🇱</span>Pierogi News<span class="flag">🇵🇱</span></h1>
+
   <div id="story">Loading the latest pierogi news...</div>
 
   <hr>
@@ -60,17 +70,16 @@
   </form>
 
   <script>
-    const rssUrl = "https://rss-proxy-s1cb.onrender.com/feed?url=https%3A%2F%2Fnews.google.com%2Frss%2Fsearch%3Fq%3Dpierogi%26hl%3Den-US%26gl%3DUS%26ceid%3DUS%3Aen
-";
-    const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
+    const apiUrl = "https://rss-proxy-s1cb.onrender.com/feed?url=https%3A%2F%2Fnews.google.com%2Frss%2Fsearch%3Fq%3Dpierogi%26hl%3Den-US%26gl%3DUS%26ceid%3DUS%3Aen";
 
     fetch(apiUrl)
       .then(res => res.json())
       .then(data => {
-        if (!data.items || data.items.length === 0) {
-          throw new Error("No news found.");
+        if (!Array.isArray(data) || data.length === 0) {
+          throw new Error("No news items found.");
         }
-        const item = data.items[Math.floor(Math.random() * data.items.length)];
+
+        const item = data[Math.floor(Math.random() * data.length)];
         document.getElementById("story").innerHTML = `
           <h3>${item.title}</h3>
           <p>${item.description}</p>
