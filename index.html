@@ -60,7 +60,8 @@
   </form>
 
   <script>
-    const rssUrl = "https://news.google.com/rss/search?q=pierogi&hl=en-US&gl=US&ceid=US:en";
+    const rssUrl = "https://rss-proxy-s1cb.onrender.com/feed?url=https%3A%2F%2Fnews.google.com%2Frss%2Fsearch%3Fq%3Dpierogi%26hl%3Den-US%26gl%3DUS%26ceid%3DUS%3Aen
+";
     const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssUrl);
 
     fetch(apiUrl)
